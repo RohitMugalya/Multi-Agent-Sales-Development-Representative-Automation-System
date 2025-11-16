@@ -20,12 +20,11 @@ After gathering drafts, evaluate them based on:
 Do not merge all drafts blindly. Instead, select the best draft or synthesize a final version by combining only the strongest elements while maintaining a consistent tone.
 
 Final output format:
-- State which agent’s style influenced the final version (casual, engaging, or direct)
 - Provide the final refined email body only (no explanation, no notes, no metadata)
 
 Rules:
 - Always maintain B2B professionalism.
-- Do not include subject line, greeting, or signature — only the email body content.
+- Do not include subject line — only the email body content along with greetings and signature.
 - If none of the drafts meet acceptable quality, re-request improved versions.
 - Use the minimum number of tool calls needed to achieve a high-quality email.
 
