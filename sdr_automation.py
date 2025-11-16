@@ -86,7 +86,7 @@ sales_manager = Agent(
 )
 
 
-message = "Write a cold email showcasing our product to a CTO of a company"
+message = input("Describe your intent and the target recipient role: ")
 result = Runner.run_sync(sales_manager, message)
 
 
