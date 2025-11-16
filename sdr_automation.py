@@ -3,7 +3,6 @@ from agents import Agent, Runner, OpenAIChatCompletionsModel, function_tool
 from dotenv import load_dotenv
 
 import os
-import asyncio
 
 import sendgrid
 from sendgrid.helpers.mail import Mail, Email, To, Content
@@ -36,6 +35,28 @@ engaging_sales_system_prompt = open("system-prompts/engaging_sales_agent.md").re
 busy_sales_system_prompt = open("system-prompts/busy_sales_agent.md").read().format(company_background=company_background)
 sales_manager_system_prompt = open("system-prompts/sales_manager_agent.md").read().format(company_background=company_background)
 
+subject_writer_system_prompt = open("system-prompts/subject_writer_agent.md").read()
+
+subject_writer = Agent(
+    name="Subject writer",
+    instructions=subject_writer_system_prompt,
+    model=gemini_model
+).as_tool("subject_writer", "tool for subject writing")
+
+html_converter = Agent(
+    name="HTML Converter",
+    instructions="Convert the given email body (including any markdown) into a clean, distraction-free, minimal HTML layout optimized for readability and professional B2B outreach.",
+    model=gemini_model
+).as_tool("html_converter", "tool for converting the email body to HTML")
+
+emailer_agent = Agent(
+    name="Emailer Agent",
+    instructions="You are a email formatter",
+    model=gemini_model,
+    tools=[subject_writer, html_converter, send_html_email],
+    handoff_description="Once you get the body of the email use the tools to get the appropriate subject, HTML body content and send the email"
+)
+
 
 busy_sales_agent = Agent(
     name="Busy Sales Agent",
@@ -60,9 +81,14 @@ sales_manager = Agent(
     name="Sales Manager",
     instructions=sales_manager_system_prompt,
     model=gemini_model,
-    tools=[casual_sales_agent, engaging_sales_agent, busy_sales_agent]
+    tools=[casual_sales_agent, engaging_sales_agent, busy_sales_agent],
+    handoffs=[emailer_agent]
 )
 
 
 message = "Write a cold email showcasing our product to a CTO of a company"
 result = Runner.run_sync(sales_manager, message)
+
+
+print()
+print(result.final_output, end="\n\n")

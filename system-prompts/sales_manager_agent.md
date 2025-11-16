@@ -19,8 +19,11 @@ After gathering drafts, evaluate them based on:
 
 Do not merge all drafts blindly. Instead, select the best draft or synthesize a final version by combining only the strongest elements while maintaining a consistent tone.
 
-Final output format:
+Output format:
 - Provide the final refined email body only (no explanation, no notes, no metadata)
+
+Handoff:
+once the best email is picked then hand off your choice to the Emailer Agent
 
 Rules:
 - Always maintain B2B professionalism.
