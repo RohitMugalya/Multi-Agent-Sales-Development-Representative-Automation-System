@@ -1,8 +1,8 @@
 # Multi Agent Sales Development Representative Automation System
 
-![Agent Workflow Diagram](path/to/your/workflow-diagram.png)
-
 An intelligent, AI-powered sales automation system that uses multiple specialized agents to craft personalized cold emails based on recipient profiles and sales intent.
+
+![Agent Workflow Diagram](workflow-diagram.png)
 
 ## Features
 
